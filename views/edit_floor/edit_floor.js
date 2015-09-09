@@ -1,8 +1,13 @@
+(function() {
 'use strict';
 
-angular.module('edit_floor', ['ngRoute'])
+angular
+    .module('edit_floor', ['ngRoute'])
+    .controller('EditFloorCtrl', EditFloorCtrl);
 
+    EditFloorCtrl.$inject = ['authService'];
 
-    .controller('EditFloorCtrl', [function() {
+    function EditFloorCtrl() {
 
-    }]);
+    }
+})();

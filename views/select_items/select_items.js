@@ -1,8 +1,13 @@
+(function() {
 'use strict';
+angular
+    .module('select_items', ['ngRoute'])
+    .controller('SelectCtrl', SelectCtrl);
 
-angular.module('select_items', ['ngRoute'])
+    SelectCtrl.$inject = ['authService'];
 
+    function SelectCtrl() {
 
-    .controller('SelectCtrl', [function() {
+    }
 
-    }]);
+})();

@@ -1,11 +1,10 @@
-<div ng-controller="HomeCtrl as homeScope">
+<div>
     <h1>Home</h1>
     <span class="top20 btn btn-lg btn-primary btn-default" ng-click="homeScope.logout()">Logout</span>
     <div class="col-xs-12 col-sm-9">
         <div class="row">
-            <div class="col-xs-6 col-lg-4">
-                <h2>Build</h2>
-                <p><a class="btn btn-default" href="#/review" role="button">View details</a></p>
+            <div class="col-xs-6 col-lg-4" ng-repeat="house in homeScope.list" ng-click="homeScope.reviewHouse()">
+                <h2>{{house.name}}</h2>
             </div>
             <div class="col-xs-6 col-lg-4">
                 <h2>New Build</h2>

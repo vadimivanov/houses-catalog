@@ -1,8 +1,13 @@
+(function() {
 'use strict';
 
-angular.module('edit_house', ['ngRoute'])
+angular
+    .module('edit_house', ['ngRoute'])
+    .controller('EditHouseCtrl', EditHouseCtrl);
 
+    EditHouseCtrl.$inject = ['authService'];
 
-    .controller('EditHouseCtrl', [function() {
+    function EditHouseCtrl() {
 
-    }]);
+    }
+})();

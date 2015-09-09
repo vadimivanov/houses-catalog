@@ -1,8 +1,13 @@
+(function() {
 'use strict';
 
-angular.module('review', ['ngRoute'])
+angular
+    .module('review', ['ngRoute'])
+    .controller('ReviewCtrl', ReviewCtrl);
 
+    ReviewCtrl.$inject =['authService'];
 
-    .controller('ReviewCtrl', [function() {
+    function ReviewCtrl() {
 
-    }]);
+    }
+})();

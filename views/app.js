@@ -1,17 +1,22 @@
 'use strict';
 
-// Declare app level module which depends on views, and components
-angular.module('myApp', [
-    'ngRoute',
-    'login',
-    'home',
-    'select_items','review','edit_house','edit_floor','create_house'
-]).
-    config(['$routeProvider', function($routeProvider) {
+angular
+    .module('myApp', [
+        'ngRoute',
+        'login',
+        'home',
+        'select_items',
+        'review',
+        'edit_house',
+        'edit_floor',
+        'create_house'
+    ])
+    .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/',{
                 templateUrl:'views/login/login.html',
-                controller:'LoginCtrl'
+                controller:'LoginCtrl',
+                controllerAs: 'loginScope'
             })
             .when('/login',{
                 templateUrl:'views/login/login.html',
@@ -19,7 +24,8 @@ angular.module('myApp', [
             })
             .when('/home',{
                 templateUrl:'views/home/home.html',
-                controller:'HomeCtrl'
+                controller:'HomeCtrl',
+                controllerAs: 'homeScope'
             })
             .when('/select_items',{
                 templateUrl:'views/select_items/select_items.html',
@@ -39,7 +45,8 @@ angular.module('myApp', [
             })
             .when('/create_house',{
                 templateUrl:'views/create_house/create_house.html',
-                controller:'CreateCtrl'
+                controller:'CreateCtrl',
+                controllerAs: 'createScope'
             })
             .otherwise({redirectTo: '/login'});
     }]);

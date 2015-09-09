@@ -1,7 +1,7 @@
+(function() {
 'use strict';
-
-angular.module('login', ['ngRoute','networkService','btford.modal'])
-
+angular
+    .module('login', ['ngRoute','networkService','btford.modal'])
     .factory('myModal', function (btfModal) {
         return btfModal({
             controller: 'MyModalCtrl',
@@ -9,7 +9,7 @@ angular.module('login', ['ngRoute','networkService','btford.modal'])
             templateUrl: 'components/modal-template.html'
         });
     })
-    .factory('messages', function(){
+    .factory('messages', function () {
         var messages = {};
         messages.data = {};
         messages.send = function (msg) {
@@ -17,29 +17,22 @@ angular.module('login', ['ngRoute','networkService','btford.modal'])
         };
         return messages;
     })
-    .controller('MyModalCtrl', function ($scope, $timeout, myModal,messages) {
+    .controller('MyModalCtrl',MyModalCtrl)
+    .controller('LoginCtrl',LoginCtrl);
 
-        var ctrl = this;
-        ctrl.tickCount = 5;
-        ctrl.msgText = '';
-        ctrl.msgText = messages.data.status+": "+messages.data.statusText;
+    LoginCtrl.$inject =['authService', '$location', 'myModal', 'messages'];
+    MyModalCtrl.$inject =['myModal', 'messages'];
 
-        ctrl.closeMe = function () {
-            myModal.deactivate();
-        };
-
-    })
-
-    .controller('LoginCtrl', function($scope, $http, authService, $location,myModal,messages) {
-        var loginScope = this;
+function LoginCtrl(authService, $location,myModal,messages) {
+    var loginScope = this;
         loginScope.signInData = {
-           params: {
-               username: "",
-               password: ""
-           },
+            params: {
+                username: "",
+                password: ""
+            },
             type: "GET",
             service: "/login"
-        };
+            };
         loginScope.signUpData = {
             params: {
                 username: "",
@@ -52,30 +45,52 @@ angular.module('login', ['ngRoute','networkService','btford.modal'])
         loginScope.token = '';
         loginScope.visibility = false;
 
-        loginScope.getSignUpForm = function () {
-            loginScope.visibility = true;
-        };
+        loginScope.getSignUpForm = getSignUpForm;
+        loginScope.login = login;
+        loginScope.signUp = signUp;
 
-        loginScope.login = function () {
+        function getSignUpForm() {
+            loginScope.visibility = true;
+        }
+
+        function login() {
             authService.signIn(loginScope.signInData)
-                .then(function(response) {
-                    authService.getToken(response.data.sessionToken);
-                    loginScope.token = response.data.sessionToken;
-                    $location.url('/home');
-                }, function(err) {
-                    messages.send(err);
-                    loginScope.showModal();
-                });
-        };
-        loginScope.signUp = function () {
+            .then(function (response) {
+
+                authService.getToken(response.data.sessionToken);
+                loginScope.token = response.data.sessionToken;
+                $location.url('/home');
+            }, function (err) {
+
+                messages.send(err);
+                loginScope.showModal();
+            });
+        }
+        function signUp() {
             authService.signUp(loginScope.signUpData)
-                .then(function(response) {
-                    authService.getToken(response.data.sessionToken);
-                    loginScope.token = response.data.sessionToken;
-                    $location.url('/home');
-                }, function(err) {
-                    messages.send(err);
-                    loginScope.showModal();
-                });
-        };
-    });
+            .then(function (response) {
+
+                authService.getToken(response.data.sessionToken);
+                loginScope.token = response.data.sessionToken;
+                $location.url('/home');
+            }, function (err) {
+
+                messages.send(err);
+                loginScope.showModal();
+            });
+        }
+}
+
+function MyModalCtrl(myModal,messages) {
+    var ctrl = this;
+    ctrl.tickCount = 5;
+    ctrl.msgText = '';
+    ctrl.msgText = messages.data.status+": "+messages.data.statusText;
+    ctrl.closeMe = closeMe;
+
+    function closeMe() {
+        myModal.deactivate();
+    }
+
+}
+})();
