@@ -10,16 +10,35 @@ angular.module('networkService', ['ngResource'])
                 contentType: "application/json"
             },
             URL = "https://api.parse.com/1",
+            msg = null,
+            HOUSE_ID = null,
+            USER_ID = null,
             api = {
                 getToken: getToken,
                 signIn: signIn,
                 signUp: signUp,
                 logout: logout,
+                setUserId: setUserId,
                 getHousesList: getHousesList,
-                saveFloor: saveFloor
+                saveFloor: saveFloor,
+                getHouse: getHouse,
+                saveHouse: saveHouse,
+                setData: setData,
+                getData: getData,
+                setHouseId: setHouseId,
+                getHouseId: getHouseId
             };
             return api;
 
+//          ***messages service***
+            function setData(data) {
+                msg = data;
+            }
+            function getData() {
+                return msg;
+            }
+
+//          ***auth service***
             function signIn(data) {
                 var options = {
                     method: data.type,
@@ -63,18 +82,49 @@ angular.module('networkService', ['ngResource'])
                 var request = $http(options);
                 return request;
             }
+            function setUserId(data) {
+                console.log('setUserId',data);
+                USER_ID = data;
+            }
+            function getUserId() {
+                return USER_ID;
+            }
 
+//          ***property service***
+            function setHouseId(data) {
+                HOUSE_ID = data;
+            }
+            function getHouseId() {
+                return HOUSE_ID;
+            }
             function saveHouse(data) {
-
+                var parseObj = JSON.stringify({
+                    name: data.name,
+                    user: {
+                        __type: "Pointer",
+                        className: "_User",
+                        objectId: USER_ID
+                    }
+                });
+                var options = {
+                    method: data.type,
+                    headers: HEADER,
+                    url: URL + '/classes' + data.service,
+                    dataType: 'json',
+                    data: parseObj
+                };
+                console.log('options',options);
+                var request = $http(options);
+                return request;
             }
 
             function saveFloor(data) {
                 var parseObj = JSON.stringify({
-                    "wall": {part1: "window", part2: "door"},
+                    "wall": data.params,
                     "depend": {
                         __type: "Pointer",
                         className: "Houses",
-                        objectId: "gpe8zJK8fb"
+                        objectId: data.houseId
                     }
                 });
                 var options = {
@@ -101,12 +151,13 @@ angular.module('networkService', ['ngResource'])
                 return request;
             }
             function getHouse(data) {
-                var options = {
-                    method: data.type,
-                    headers: HEADER,
-                    url: URL + '/classes' + data.service,
-                    dataType: 'json',
-                    data:'where={"user":{"__type":"Pointer","className":"Houses","objectId":"'+ data +'"}}'
+                var query = 'where={"depend":{"__type":"Pointer","className":"Houses","objectId":"'+ data.objId +'"}}',
+                    options = {
+                        method: data.type,
+                        headers: HEADER,
+                        url: URL + '/classes' + data.service + '?' + query,
+                        dataType: 'json'
+//                    data:'where={"depend":{"__type":"Pointer","className":"Houses","objectId":"'+ data.objId +'"}}'
                 };
                 var request = $http(options);
                 return request;

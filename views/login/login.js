@@ -9,12 +9,16 @@ angular
             templateUrl: 'components/modal-template.html'
         });
     })
-    .factory('messages', function () {
-        var messages = {};
-        messages.data = {};
-        messages.send = function (msg) {
-            messages.data = msg;
+    .service('messages', function () {
+        var messages = {
+            setData: function (data) {
+                messages.data = data;
+            },
+            getData: function () {
+               return messages.data;
+            }
         };
+        messages.data = null;
         return messages;
     })
     .controller('MyModalCtrl',MyModalCtrl)
@@ -53,16 +57,21 @@ function LoginCtrl(authService, $location,myModal,messages) {
             loginScope.visibility = true;
         }
 
+        function setUserId() {
+            loginScope.visibility = true;
+        }
+
         function login() {
             authService.signIn(loginScope.signInData)
             .then(function (response) {
 
                 authService.getToken(response.data.sessionToken);
+                authService.setUserId(response.data.objectId);
                 loginScope.token = response.data.sessionToken;
                 $location.url('/home');
             }, function (err) {
 
-                messages.send(err);
+                messages.setData(err);
                 loginScope.showModal();
             });
         }
@@ -71,11 +80,12 @@ function LoginCtrl(authService, $location,myModal,messages) {
             .then(function (response) {
 
                 authService.getToken(response.data.sessionToken);
+                authService.setUserId(response.data.objectId);
                 loginScope.token = response.data.sessionToken;
                 $location.url('/home');
             }, function (err) {
 
-                messages.send(err);
+                messages.setData(err);
                 loginScope.showModal();
             });
         }
@@ -83,9 +93,8 @@ function LoginCtrl(authService, $location,myModal,messages) {
 
 function MyModalCtrl(myModal,messages) {
     var ctrl = this;
-    ctrl.tickCount = 5;
-    ctrl.msgText = '';
-    ctrl.msgText = messages.data.status+": "+messages.data.statusText;
+    ctrl.msgOpt = messages.getData();
+    ctrl.msgText = ctrl.msgOpt.status+": "+ctrl.msgOpt.statusText;
     ctrl.closeMe = closeMe;
 
     function closeMe() {

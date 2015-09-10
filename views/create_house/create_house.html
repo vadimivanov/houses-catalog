@@ -2,11 +2,11 @@
 <div class="center-block navbar-fixed-bottom">
     <div class="floor center">
         <h4>Add floor</h4>
-        <!--<p><a class="btn btn-default" href="#/edit_floor" role="button">Add</a></p>-->
-        <span class="btn btn-default" role="button" ng-click="createScope.addFloor()">Add</span>
+        <span class="btn btn-default" role="button" ng-click="createScope.goToEditFloor()">Add</span>
     </div>
-    <div class="floor center">
-        <h4>Floor1</h4>
-        <p><a class="btn btn-default" href="#/edit_floor" role="button">Edit floor</a></p>
+    <div class="floor center" ng-repeat="floor in createScope.floorsList">
+        <span>Floor: {{$index + 1}}</span>
+        <span class="{{floor.wall.part1}}">{{floor.wall.part1}}</span>
+        <span class="{{floor.wall.part2}}">{{floor.wall.part2}}</span>
     </div>
 </div>

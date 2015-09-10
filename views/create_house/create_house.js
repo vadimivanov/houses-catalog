@@ -5,22 +5,34 @@ angular
     .module('create_house', ['ngRoute'])
     .controller('CreateCtrl', CreateCtrl);
 
-    CreateCtrl.$inject = ['authService'];
+    CreateCtrl.$inject = ['authService', '$location'];
 
-    function CreateCtrl(authService) {
+    function CreateCtrl(authService, $location) {
         var createScope = this;
         createScope.list = [];
-        createScope.addFloor = addFloor;
+        createScope.addFloor = goToEditFloor;
+        createScope.houseId = authService.getHouseId();
+        createScope.floorsList = [];
+        createScope.reviewData = {
+            type: "GET",
+            service: "/Floors",
+            objId: createScope.houseId
+        };
+        createScope.getHouse = getHouse();
 
-        function addFloor() {
-            authService.saveFloor({type: "POST", service: "/Floors"})
+        function getHouse() {
+            authService.getHouse(createScope.reviewData)
                 .then(function (response) {
-                    console.log('response-load',response);
-                }, function (error) {
-                    console.log('error-load',error);
+                    createScope.floorsList = response.data.results;
+                    console.log('createScope',response,createScope.floorsList);
+                },function (err) {
+                    console.log('createScope-err',err,createScope.reviewData);
                 });
         }
 
+        function goToEditFloor() {
+            $location.url('/edit_floor');
+        }
     }
 
 })();

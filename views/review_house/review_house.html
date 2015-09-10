@@ -1,13 +1,9 @@
 <h1>Review house</h1>
 <div class="center-block navbar-fixed-bottom">
-    <div class="floor center">
-        <h4>Floor3</h4>
-    </div>
-    <div class="floor center">
-        <h4>Floor2</h4>
-    </div>
-    <div class="floor center">
-        <h4>Floor1</h4>
+<span class="btn btn-default" ng-click="reviewScope.setHouseId()">Edit house</span>
+    <div class="floor center" ng-repeat="floor in reviewScope.floorsList">
+        <span>Floor: {{$index + 1}}</span>
+        <span class="{{floor.wall.part1}}">{{floor.wall.part1}}</span>
+        <span class="{{floor.wall.part2}}">{{floor.wall.part2}}</span>
     </div>
 </div>
-<span><a class="btn btn-default" href="#/edit_house" role="button">Edit house</a></span>

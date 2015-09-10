@@ -45,11 +45,10 @@ span{
     padding: 10px;
 }
 .floor{
-    /*right: 0;*/
-    /*left: 0;*/
-    /*bottom: 0;*/
-    /* top: 0; */
-    /*position: absolute;*/
+    height: 100px;
+}
+.floor span{
+   display: block;
 }
 .ng-modal-overlay {
     /* A dark translucent div that covers the whole screen */
@@ -92,4 +91,15 @@ span{
     display: inline-block;
     font-weight: bold;
     font-family: 'arial', 'sans-serif';
+}
+.window{
+    width: 40%;
+    height: 30px;
+    background: red;
+    float: right;
+}
+.door{
+    width: 40%;
+    height: 60px;
+    background: blue;
 }

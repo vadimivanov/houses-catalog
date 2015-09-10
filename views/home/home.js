@@ -17,6 +17,7 @@ angular
         homeScope.logout = logout;
         homeScope.loadHousesList = loadHousesList();
         homeScope.reviewHouse = reviewHouse;
+        homeScope.createHouse = createHouse;
 
         function logout() {
             authService.logout(homeScope.logoutData)
@@ -28,19 +29,30 @@ angular
         }
 
         function loadHousesList() {
-            console.log('ping');
             authService.getHousesList({type: "GET", service: "/Houses"})
                 .then(function (response) {
                     homeScope.list = response.data.results;
-
                     console.log('response-load',response,homeScope.list);
                 }, function (error) {
                     console.log('error-load',error);
                 });
         }
 
-        function reviewHouse() {
+        function reviewHouse(id) {
             $location.url('/review');
+            authService.setHouseId(id);
+        }
+        function createHouse(id) {
+            $location.url('/create_house');
+            authService.saveHouse({
+                name:"test house",
+                type: "POST",
+                service: "/Houses"
+            }).then(function (response) {
+                console.log('response-createHouse',response);
+            }, function (error) {
+                console.log('error-createHouse',error);
+            });
         }
     }
 })();

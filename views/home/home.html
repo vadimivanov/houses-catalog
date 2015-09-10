@@ -3,12 +3,12 @@
     <span class="top20 btn btn-lg btn-primary btn-default" ng-click="homeScope.logout()">Logout</span>
     <div class="col-xs-12 col-sm-9">
         <div class="row">
-            <div class="col-xs-6 col-lg-4" ng-repeat="house in homeScope.list" ng-click="homeScope.reviewHouse()">
+            <div class="col-xs-6 col-lg-4" ng-repeat="house in homeScope.list" ng-click="homeScope.reviewHouse(house.objectId)">
                 <h2>{{house.name}}</h2>
             </div>
             <div class="col-xs-6 col-lg-4">
                 <h2>New Build</h2>
-                <p><a class="btn btn-default" href="#/create_house" role="button">Add New</a></p>
+                <span class="btn btn-default" ng-click="homeScope.createHouse()">Add New</span>
             </div>
         </div>
     </div>
