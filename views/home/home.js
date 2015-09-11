@@ -22,7 +22,6 @@ angular
         function logout() {
             authService.logout(homeScope.logoutData)
                 .then(function (response) {
-                    console.log('response',response,homeScope.logoutData);
                     $location.url('/login');
                     $location.replace();
                 });
@@ -32,9 +31,7 @@ angular
             authService.getHousesList({type: "GET", service: "/Houses"})
                 .then(function (response) {
                     homeScope.list = response.data.results;
-                    console.log('response-load',response,homeScope.list);
                 }, function (error) {
-                    console.log('error-load',error);
                 });
         }
 
@@ -49,9 +46,8 @@ angular
                 type: "POST",
                 service: "/Houses"
             }).then(function (response) {
-                console.log('response-createHouse',response);
+                authService.setHouseId(response.data.objectId);
             }, function (error) {
-                console.log('error-createHouse',error);
             });
         }
     }

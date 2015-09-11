@@ -11,6 +11,7 @@ angular.module('networkService', ['ngResource'])
             },
             URL = "https://api.parse.com/1",
             msg = null,
+            itemsObj = {part1: "partWall", part2: "partWall"},
             HOUSE_ID = null,
             USER_ID = null,
             api = {
@@ -26,7 +27,11 @@ angular.module('networkService', ['ngResource'])
                 setData: setData,
                 getData: getData,
                 setHouseId: setHouseId,
-                getHouseId: getHouseId
+                getHouseId: getHouseId,
+                getFloor: getFloor,
+                setItems: setItems,
+                getItems: getItems,
+                removeFloor: removeFloor
             };
             return api;
 
@@ -83,7 +88,7 @@ angular.module('networkService', ['ngResource'])
                 return request;
             }
             function setUserId(data) {
-                console.log('setUserId',data);
+//                console.log('setUserId',data);
                 USER_ID = data;
             }
             function getUserId() {
@@ -140,13 +145,14 @@ angular.module('networkService', ['ngResource'])
             }
 
             function getHousesList(data) {
-                var options = {
-                    method: data.type,
-                    headers: HEADER,
-                    url: URL + '/classes' + data.service,
-                    dataType: 'json',
-                    data: data.params
-                };
+                var query = 'where={"user":{"__type":"Pointer","className":"_User","objectId":"'+ USER_ID +'"}}',
+                    options = {
+                        method: data.type,
+                        headers: HEADER,
+                        url: URL + '/classes' + data.service + '?' + query,
+                        dataType: 'json',
+                        data: data.params
+                    };
                 var request = $http(options);
                 return request;
             }
@@ -161,6 +167,36 @@ angular.module('networkService', ['ngResource'])
                 };
                 var request = $http(options);
                 return request;
+            }
+            function getFloor(data) {
+                console.log('getFloor',data);
+                var query = 'where={"depend":{"__type":"Pointer","className":"Houses","objectId":"'+ data.objId +'"}}',
+                    options = {
+                        method: 'GET',
+                        headers: HEADER,
+                        url: URL + '/classes/Floors/'+data,
+                        dataType: 'json'
+                    };
+                var request = $http(options);
+                return request;
+            }
+            function removeFloor(data) {
+                var options = {
+                        method: data.type,
+                        headers: HEADER,
+                        url: URL + '/classes' + data.service,
+                        dataType: 'json'
+                    };
+                var request = $http(options);
+                return request;
+            }
+
+//            ***property service***
+            function setItems(data) {
+                itemsObj = data;
+            }
+            function getItems() {
+                return itemsObj;
             }
 
     });

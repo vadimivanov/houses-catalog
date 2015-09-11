@@ -27,31 +27,31 @@ angular
     LoginCtrl.$inject =['authService', '$location', 'myModal', 'messages'];
     MyModalCtrl.$inject =['myModal', 'messages'];
 
-function LoginCtrl(authService, $location,myModal,messages) {
-    var loginScope = this;
-        loginScope.signInData = {
-            params: {
-                username: "",
-                password: ""
-            },
-            type: "GET",
-            service: "/login"
+    function LoginCtrl(authService, $location,myModal,messages) {
+        var loginScope = this;
+            loginScope.signInData = {
+                params: {
+                    username: "",
+                    password: ""
+                },
+                type: "GET",
+                service: "/login"
+                };
+            loginScope.signUpData = {
+                params: {
+                    username: "",
+                    password: ""
+                },
+                type: "POST",
+                service: "/users"
             };
-        loginScope.signUpData = {
-            params: {
-                username: "",
-                password: ""
-            },
-            type: "POST",
-            service: "/users"
-        };
-        loginScope.showModal = myModal.activate;
-        loginScope.token = '';
-        loginScope.visibility = false;
+            loginScope.showModal = myModal.activate;
+            loginScope.token = '';
+            loginScope.visibility = false;
 
-        loginScope.getSignUpForm = getSignUpForm;
-        loginScope.login = login;
-        loginScope.signUp = signUp;
+            loginScope.getSignUpForm = getSignUpForm;
+            loginScope.login = login;
+            loginScope.signUp = signUp;
 
         function getSignUpForm() {
             loginScope.visibility = true;
@@ -91,15 +91,15 @@ function LoginCtrl(authService, $location,myModal,messages) {
         }
 }
 
-function MyModalCtrl(myModal,messages) {
-    var ctrl = this;
-    ctrl.msgOpt = messages.getData();
-    ctrl.msgText = ctrl.msgOpt.status+": "+ctrl.msgOpt.statusText;
-    ctrl.closeMe = closeMe;
+    function MyModalCtrl(myModal,messages) {
+        var ctrl = this;
+        ctrl.msgOpt = messages.getData();
+        ctrl.msgText = ctrl.msgOpt.status+": "+ctrl.msgOpt.statusText;
+        ctrl.closeMe = closeMe;
 
-    function closeMe() {
-        myModal.deactivate();
+        function closeMe() {
+            myModal.deactivate();
+        }
+
     }
-
-}
 })();

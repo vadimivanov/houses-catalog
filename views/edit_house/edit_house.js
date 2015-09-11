@@ -10,6 +10,8 @@ angular
     function EditHouseCtrl(authService, $location) {
         var editHouseScope = this;
         editHouseScope.floorsList = [];
+        editHouseScope.reverse = true;
+        editHouseScope.removeFloor = removeFloor;
         editHouseScope.houseId = authService.getHouseId();
         editHouseScope.reviewData = {
             type: "GET",
@@ -29,8 +31,22 @@ angular
                 });
         }
 
-        function goToEditFloor() {
+        function goToEditFloor(id) {
+            authService.setData(id);
             $location.url('/edit_floor');
+        }
+
+        function removeFloor(id) {
+            authService.removeFloor({
+                type: "DELETE",
+                service: "/Floors/"+id
+            })
+                .then(function (response) {
+                    console.log('editHouseScope',response,editHouseScope.floorsList);
+                    getHouse();
+                },function (err) {
+                    console.log('editHouseScope-err',err,editHouseScope.reviewData);
+                });
         }
     }
 })();

@@ -10,24 +10,43 @@ angular
     function EditFloorCtrl(authService, $location) {
         var editFloorScope = this;
             editFloorScope.addFloor = addFloor;
+            editFloorScope.selectItems = selectItems;
+            editFloorScope.floorId = authService.getData();
+            editFloorScope.getCurrentFloor = getCurrentFloor(editFloorScope.floorId);
+
+        console.log('editFloorScope.parts',editFloorScope.floorId);
             editFloorScope.floorOptions = {
-                params:{
-                    part1: "window",
-                    part2: "door"
-                },
+                params: editFloorScope.parts,
                 type: "POST",
                 service: "/Floors",
                 houseId: authService.getHouseId()
             };
 
         function addFloor() {
-            $location.url('/edit_floor');
+            $location.url('/home');
             authService.saveFloor(editFloorScope.floorOptions)
                 .then(function (response) {
-                    console.log('response-load',response);
+                    editFloorScope.parts = authService.setItems({part1: "partWall", part2: "partWall"});
                 }, function (error) {
-                    console.log('error-load',error);
                 });
+        }
+
+        function selectItems(item) {
+            authService.setData('part'+item);
+            $location.url('/select_items');
+        }
+        function getCurrentFloor(item) {
+            console.log('item',item);
+            if (item !== 'undefined') {
+                authService.getFloor(editFloorScope.floorId)
+                .then(function (response) {
+                    editFloorScope.parts = response.data.wall;
+            console.log('getCurrentFloor',item,editFloorScope.parts);
+                }, function (error) {
+                });
+            } else {
+                editFloorScope.parts = authService.getItems();
+            }
         }
     }
 })();
