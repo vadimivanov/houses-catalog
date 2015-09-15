@@ -13,9 +13,11 @@ angular.module('networkService', ['ngResource'])
             msg = null,
             itemsObj = {part1: "partWall", part2: "partWall"},
             HOUSE_ID = null,
+            FLOOR_ID = null,
             USER_ID = null,
             api = {
                 getToken: getToken,
+                getWallComponents: getWallComponents,
                 signIn: signIn,
                 signUp: signUp,
                 logout: logout,
@@ -24,6 +26,7 @@ angular.module('networkService', ['ngResource'])
                 saveFloor: saveFloor,
                 getHouse: getHouse,
                 saveHouse: saveHouse,
+                removeHouse: removeHouse,
                 setData: setData,
                 getData: getData,
                 setHouseId: setHouseId,
@@ -31,7 +34,10 @@ angular.module('networkService', ['ngResource'])
                 getFloor: getFloor,
                 setItems: setItems,
                 getItems: getItems,
-                removeFloor: removeFloor
+                removeFloor: removeFloor,
+                changeFloor: changeFloor,
+                getFloorId: getFloorId,
+                setFloorId: setFloorId
             };
             return api;
 
@@ -88,14 +94,20 @@ angular.module('networkService', ['ngResource'])
                 return request;
             }
             function setUserId(data) {
-//                console.log('setUserId',data);
                 USER_ID = data;
-            }
-            function getUserId() {
-                return USER_ID;
             }
 
 //          ***property service***
+            function getWallComponents(data) {
+                var options = {
+                    method: data.type,
+                    headers: HEADER,
+                    url: URL + '/classes' + data.service,
+                    dataType: 'json'
+                };
+                var request = $http(options);
+                return request;
+            }
             function setHouseId(data) {
                 HOUSE_ID = data;
             }
@@ -122,6 +134,16 @@ angular.module('networkService', ['ngResource'])
                 var request = $http(options);
                 return request;
             }
+            function removeHouse(data) {
+                var options = {
+                    method: data.type,
+                    headers: HEADER,
+                    url: URL + '/classes' + data.service,
+                    dataType: 'json'
+                };
+                var request = $http(options);
+                return request;
+            }
 
             function saveFloor(data) {
                 var parseObj = JSON.stringify({
@@ -140,6 +162,20 @@ angular.module('networkService', ['ngResource'])
                     data: parseObj
                 };
                 console.log('options',options);
+                var request = $http(options);
+                return request;
+            }
+            function changeFloor(data) {
+                var parseObj = JSON.stringify({
+                    "wall": data.params
+                });
+                var options = {
+                    method: data.type,
+                    headers: HEADER,
+                    url: URL + '/classes' + data.service,
+                    dataType: 'json',
+                    data: parseObj
+                };
                 var request = $http(options);
                 return request;
             }
@@ -163,15 +199,13 @@ angular.module('networkService', ['ngResource'])
                         headers: HEADER,
                         url: URL + '/classes' + data.service + '?' + query,
                         dataType: 'json'
-//                    data:'where={"depend":{"__type":"Pointer","className":"Houses","objectId":"'+ data.objId +'"}}'
                 };
                 var request = $http(options);
                 return request;
             }
             function getFloor(data) {
                 console.log('getFloor',data);
-                var query = 'where={"depend":{"__type":"Pointer","className":"Houses","objectId":"'+ data.objId +'"}}',
-                    options = {
+                var options = {
                         method: 'GET',
                         headers: HEADER,
                         url: URL + '/classes/Floors/'+data,
@@ -189,6 +223,12 @@ angular.module('networkService', ['ngResource'])
                     };
                 var request = $http(options);
                 return request;
+            }
+            function setFloorId(data) {
+                FLOOR_ID = data;
+            }
+            function getFloorId() {
+                return FLOOR_ID;
             }
 
 //            ***property service***

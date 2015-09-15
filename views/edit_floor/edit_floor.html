@@ -1,9 +1,12 @@
-<h1>Edit Floor</h1>
 <div class="center-block">
     <div class="floor center">
         <div ng-repeat="part in editFloorScope.parts">
-            <span class="{{part}}" ng-click="editFloorScope.selectItems($index+1)" ></span>
+            <span class="{{part}} span-margin-right" ng-click="editFloorScope.selectItems($index+1)" ></span>
         </div>
     </div>
-    <span class="btn btn-default" ng-click="editFloorScope.addFloor()">Add Floor</span>
+    <div class="top20">
+        <span class="btn btn-default" ng-click="editFloorScope.addFloor()">Add Floor</span>
+        <span class="btn btn-default" ng-click="editFloorScope.changeFloor()">Change Floor</span>
+        <span class="btn btn-default" ng-click="editFloorScope.cancel()">Cancel</span>
+    </div>
 </div>

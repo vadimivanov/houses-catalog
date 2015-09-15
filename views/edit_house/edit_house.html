@@ -1,14 +1,16 @@
-<h1>Edit house</h1>
 <div class="center-block navbar-fixed-bottom">
     <div class="floor center">
         <h4>Add floor</h4>
         <span class="btn btn-default" ng-click="editHouseScope.goToEditFloor()">Add</span>
     </div>
     <div class="floor center" ng-repeat="floor in editHouseScope.floorsList | orderBy:$index:editHouseScope.reverse">
-        <div class="block"  ng-click="editHouseScope.goToEditFloor(floor.objectId)">
-            <span class="{{floor.wall.part1}}">{{floor.wall.part1}}</span>
-            <span class="{{floor.wall.part2}}">{{floor.wall.part2}}</span>
+        <div class="floor-items-left" >
+            <span class="{{floor.wall.part1}} span-margin-right">{{floor.wall.part1}}</span>
+            <span class="{{floor.wall.part2}} span-margin-right">{{floor.wall.part2}}</span>
         </div>
-        <span class="btn btn-default" ng-click="editHouseScope.removeFloor(floor.objectId)">remove floor</span>
+        <div class="floor-items-right">
+            <span class="btn btn-default" ng-click="editHouseScope.removeFloor(floor.objectId)">remove floor</span><br>
+            <span class="btn btn-default" ng-click="editHouseScope.goToEditFloor(floor.objectId)">edit floor</span>
+        </div>
     </div>
 </div>

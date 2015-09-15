@@ -26,8 +26,22 @@
     content: "";
     padding: 0;
 }
+.myModal-dialog{
+    width: 300px;
+    text-align: center;
+}
 .block{
    width: 100px;
+}
+.input-text{
+    width: 100%;
+    color: #000000;
+}
+.remove{
+    padding: 0;
+    float: right;
+    width: 60px;
+    height: 20px;
 }
 .row {
     margin-bottom: 20px;
@@ -96,12 +110,23 @@ span{
 .window{
     width: 50px;
     height: 50px;
+    color: #ffffff;
     background: red;
 }
 .door{
     width: 50px;
     height: 80px;
+    color: #ffffff;
     background: blue;
+}
+.span-margin-right{
+    margin-right: 5px;
+}
+.floor-items-left{
+    float: left;
+}
+.floor-items-right{
+    float: right;
 }
 .partWall{
     width: 80px;

@@ -13,7 +13,7 @@ angular
     ])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
-            .when('/',{
+            .when('/login',{
                 templateUrl:'views/login/login.html',
                 controller:'LoginCtrl',
                 controllerAs: 'loginScope'
@@ -54,4 +54,15 @@ angular
                 controllerAs: 'createScope'
             })
             .otherwise({redirectTo: '/login'});
-    }]);
+    }])
+        .controller('RootCtrl', RootCtrl);
+
+        RootCtrl.$inject = ['authService', '$location'];
+
+        function RootCtrl(authService, $location) {
+            var searchObject = $location;
+            var path = $location.path();
+            var url = $location.url();
+            var hash = $location.hash();
+            console.log('searchObject',path,url,hash,searchObject);
+        }

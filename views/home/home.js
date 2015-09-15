@@ -9,7 +9,11 @@ angular
 
     function HomeCtrl(authService, $location) {
         var homeScope = this;
+        var path = $location.path();
+        homeScope.visibilityNavBar = (path == '/home');
+        console.log('searchObject-home',path,path == '/home',homeScope.visibilityNavBar);
         homeScope.list = [];
+        homeScope.houseName = '';
         homeScope.logoutData = {
             type: "POST",
             service: "/logout"
@@ -18,6 +22,7 @@ angular
         homeScope.loadHousesList = loadHousesList();
         homeScope.reviewHouse = reviewHouse;
         homeScope.createHouse = createHouse;
+        homeScope.removeHouse = removeHouse;
 
         function logout() {
             authService.logout(homeScope.logoutData)
@@ -42,13 +47,22 @@ angular
         function createHouse(id) {
             $location.url('/create_house');
             authService.saveHouse({
-                name:"test house",
+                name: homeScope.houseName,
                 type: "POST",
                 service: "/Houses"
             }).then(function (response) {
                 authService.setHouseId(response.data.objectId);
             }, function (error) {
             });
+        }
+
+        function removeHouse(id) {
+            authService.removeHouse({
+                type: "DELETE",
+                service: "/Houses/"+id
+            }).then(function (response) {
+                loadHousesList();
+            },function (err) {});
         }
     }
 })();

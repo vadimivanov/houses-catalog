@@ -20,33 +20,44 @@ angular
         };
         editHouseScope.getHouse = getHouse();
         editHouseScope.goToEditFloor = goToEditFloor;
+        editHouseScope.getCurrentFloor = getCurrentFloor;
 
         function getHouse() {
             authService.getHouse(editHouseScope.reviewData)
                 .then(function (response) {
                     editHouseScope.floorsList = response.data.results;
-                    console.log('editHouseScope',response,editHouseScope.floorsList);
                 },function (err) {
-                    console.log('editHouseScope-err',err,editHouseScope.reviewData);
                 });
         }
 
         function goToEditFloor(id) {
-            authService.setData(id);
-            $location.url('/edit_floor');
+            if (id) {
+                authService.setFloorId(id);
+                getCurrentFloor(id);
+            } else {
+                authService.setItems({part1: "partWall", part2: "partWall"});
+                $location.url('/edit_floor');
+            }
+
+        }
+        function getCurrentFloor(id) {
+            authService.getFloor(id)
+                .then(function (response) {
+                    editHouseScope.parts = response.data.wall;
+                    authService.setItems(editHouseScope.parts);
+                    $location.url('/edit_floor');
+                }, function (error) {
+                });
         }
 
         function removeFloor(id) {
             authService.removeFloor({
                 type: "DELETE",
                 service: "/Floors/"+id
-            })
-                .then(function (response) {
-                    console.log('editHouseScope',response,editHouseScope.floorsList);
-                    getHouse();
-                },function (err) {
-                    console.log('editHouseScope-err',err,editHouseScope.reviewData);
-                });
+            }).then(function (response) {
+                getHouse();
+            },function (err) {
+            });
         }
     }
 })();
