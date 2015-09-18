@@ -14,17 +14,17 @@ angular
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/login',{
-                templateUrl:'views/login/login.html',
+                templateUrl:'views/login/login.tpl.html',
                 controller:'LoginCtrl',
                 controllerAs: 'loginScope'
             })
             .when('/login',{
-                templateUrl:'views/login/login.html',
+                templateUrl:'views/login/login.tpl.html',
                 controller:'LoginCtrl',
                 controllerAs: 'loginScope'
             })
             .when('/home',{
-                templateUrl:'views/home/home.html',
+                templateUrl:'views/home/home.tpl.html',
                 controller:'HomeCtrl',
                 controllerAs: 'homeScope'
             })
