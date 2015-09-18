@@ -57,10 +57,17 @@ angular
         }
 
         function removeHouse(id) {
+            var arrDel = [];
             authService.removeHouse({
                 type: "DELETE",
-                service: "/Houses/"+id
+                service: "/Houses/"+id,
+                houseId: id
             }).then(function (response) {
+//                authService.getHouse(editHouseScope.reviewData)
+//                    .then(function (response) {
+//                        arrDel.push(response.data.results);
+//                    },function (err) {
+//                    });
                 loadHousesList();
             },function (err) {});
         }

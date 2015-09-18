@@ -13,6 +13,7 @@ angular
         createScope.goToEditFloor = goToEditFloor;
 
         function goToEditFloor() {
+            authService.setItems({part1: "partWall", part2: "partWall"});
             $location.url('/edit_floor');
         }
     }

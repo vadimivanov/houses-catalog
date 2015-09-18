@@ -144,6 +144,17 @@ angular.module('networkService', ['ngResource'])
                 var request = $http(options);
                 return request;
             }
+            function removeHouseFloors(data) {
+                var query = 'where={"depend":{"__type":"Pointer","className":"Houses","objectId":"'+ data.houseId +'"}}',
+                    options = {
+                        method: data.type,
+                        headers: HEADER,
+                        url: URL + '/classes/Floors' + '?' + query,
+                        dataType: 'json'
+                    };
+                var request = $http(options);
+                return request;
+            }
 
             function saveFloor(data) {
                 var parseObj = JSON.stringify({
