@@ -29,27 +29,27 @@ angular
                 controllerAs: 'homeScope'
             })
             .when('/select_items',{
-                templateUrl:'views/select_items/select_items.html',
+                templateUrl:'views/select_items/select_items.tpl.html',
                 controller:'SelectCtrl',
                 controllerAs: 'selectItemsScope'
             })
             .when('/review',{
-                templateUrl:'views/review_house/review_house.html',
+                templateUrl:'views/review_house/review_house.tpl.html',
                 controller:'ReviewCtrl',
                 controllerAs: 'reviewScope'
             })
             .when('/edit_house',{
-                templateUrl:'views/edit_house/edit_house.html',
+                templateUrl:'views/edit_house/edit_house.tpl.html',
                 controller:'EditHouseCtrl',
                 controllerAs: 'editHouseScope'
             })
             .when('/edit_floor',{
-                templateUrl:'views/edit_floor/edit_floor.html',
+                templateUrl:'views/edit_floor/edit_floor.tpl.html',
                 controller:'EditFloorCtrl',
                 controllerAs: 'editFloorScope'
             })
             .when('/create_house',{
-                templateUrl:'views/create_house/create_house.html',
+                templateUrl:'views/create_house/create_house.tpl.html',
                 controller:'CreateCtrl',
                 controllerAs: 'createScope'
             })

@@ -5,7 +5,7 @@ angular
     login.$inject = ['$state', 'network'];
 
     function login($state, network) {
-        console.log('dir');
+
         function linker($scope) {
             $scope.signInData = {
                 params: {
@@ -16,13 +16,13 @@ angular
                 service: "/login"
             };
             $scope.signIn = function (id) {
-                network.signIn($scope.signInData)
-                    .then(function (response) {
-                        console.log(response);
+//                network.signIn($scope.signInData)
+//                    .then(function (response) {
+//                        console.log(response);
                         $state.go('main.home');
-                    }, function (err) {
-
-                    });
+//                    }, function (err) {
+//
+//                    });
 
             }
         }

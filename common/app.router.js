@@ -15,7 +15,6 @@ function config($stateProvider, $urlRouterProvider) {
         })
         .state('auth.login',{
             url: '/login',
-//            templateUrl: 'views/login/login.tpl.html'
             template: '<login></login>'
         })
         .state('main',{
@@ -27,9 +26,50 @@ function config($stateProvider, $urlRouterProvider) {
         })
         .state('main.home',{
             url: '/home',
-            templateUrl: 'views/home/home.tpl.html',
+//            templateUrl: 'views/home/home.tpl.html',
+            template: '<home/>',
             ncyBreadcrumb: {
                 label: 'Home'
+            }
+        })
+        .state('main.review_house',{
+            url: '/review_house',
+//            templateUrl: 'views/review_house/review_house.tpl.html',
+            template: '<review/>',
+            ncyBreadcrumb: {
+                label: 'Review'
+            }
+        })
+        .state('main.edit-house',{
+            url: '/edit-house',
+//            templateUrl: 'views/edit_house/edit_house.tpl.html',
+            template: '<edit_house/>',
+            ncyBreadcrumb: {
+                label: 'Edit House'
+            }
+        })
+        .state('main.create_house',{
+            url: '/create_house',
+//            templateUrl: 'views/create_house/create_house.tpl.html',
+            template: '<create_house/>',
+            ncyBreadcrumb: {
+                label: 'Create House'
+            }
+        })
+        .state('main.edit-floor',{
+            url: '/edit-floor',
+            templateUrl: 'views/edit_floor/edit_floor.tpl.html',
+//            template: '<review></review>',
+            ncyBreadcrumb: {
+                label: 'Edit floor'
+            }
+        })
+        .state('main.select-items',{
+            url: '/select-items',
+            templateUrl: 'views/select_items/select_items.tpl.html',
+//            template: '<review></review>',
+            ncyBreadcrumb: {
+                label: 'Select items'
             }
         })
 }

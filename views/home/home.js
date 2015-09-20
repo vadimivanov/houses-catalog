@@ -2,20 +2,19 @@
 
 angular
     .module('app')
-//    .controller('HomeCtrl', HomeCtrl)
     .directive('home', home);
-
-//    HomeCtrl.$inject = ['authService', '$location'];
 
     home.$inject = ['$state'];
 
     function home($state, network, dataService, $stateParams) {
+        console.log('dir-home');
         function linker($scope) {
-            $scope.data = {
-                state: $state,
-                headerNavigationItems: null,
-                connectionError: false
+            $scope.reviewHouse = function (id) {
+                $state.go('main.review_house');
             };
+            $scope.createHouse = function (id) {
+                $state.go('main.create_house');
+            }
         }
         return {
             templateUrl: 'views/home/home.tpl.html',
