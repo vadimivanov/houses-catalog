@@ -1,8 +1,7 @@
-<!--<div class="center-block navbar-fixed-bottom">-->
+<div class="center-block navbar-fixed-bottom">
 <span class="btn btn-default" ng-click="setHouseId()">Edit house</span>
-    <!--<div class="floor center" ng-repeat="floor in reviewScope.floorsList | orderBy:$index:reviewScope.reverse">-->
-        <!--<span class="{{floor.wall.part1}} span-margin-right">{{floor.wall.part1}}</span>-->
-        <!--<span class="{{floor.wall.part2}} span-margin-right">{{floor.wall.part2}}</span>-->
-    <!--</div>-->
-<!--</div>-->
-<h2>Review</h2>
+    <div class="floor center" ng-repeat="floor in floorsList | orderBy:$index:reverse">
+        <span class="{{floor.wall.part1}} span-margin-right">{{floor.wall.part1}}</span>
+        <span class="{{floor.wall.part2}} span-margin-right">{{floor.wall.part2}}</span>
+    </div>
+</div>

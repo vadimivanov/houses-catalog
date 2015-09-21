@@ -1,54 +1,34 @@
-//(function() {
-//'use strict';
-//angular
-//    .module('select_items', ['ngRoute'])
-//    .controller('SelectCtrl', SelectCtrl);
-//
-//    SelectCtrl.$inject = ['authService', '$location'];
-//
-//    function SelectCtrl(authService, $location) {
-//        var selectItemsScope = this;
-//            selectItemsScope.chooseItem = chooseItem;
-//            selectItemsScope.wallComponents = [];
-//            selectItemsScope.getWallComponents = getWallComponents();
-//            selectItemsScope.parts = authService.getItems();
-//            selectItemsScope.part = authService.getData();
-//
-//        function chooseItem(item) {
-//            selectItemsScope.parts[selectItemsScope.part] = item;
-//            authService.setItems(selectItemsScope.parts);
-//            $location.url('/edit_floor');
-//        }
-//
-//        function getWallComponents() {
-//            authService.getWallComponents({
-//                type: "GET",
-//                service: "/Items"
-//            }).then(function (response) {
-//                console.log('Items response',response);
-//                selectItemsScope.getWallComponents = response.data.results;
-//            },function (err) {
-//            });
-//        }
-//    }
-//
-//})();
 angular
     .module('app')
-    .directive('select_items', selectItems);
+    .directive('selectItems', select_items);
 
-selectItems.$inject = ['$state'];
+select_items.$inject = ['$state', 'network'];
 
-function selectItems($state, network, dataService, $stateParams) {
+function select_items($state, network, dataService, $stateParams) {
     function linker($scope) {
-        $scope.chooseItem = function () {
-            $state.go('main.edit-floor');
-        }
+        $scope.wallComponents = [];
+        $scope.parts = network.getItems();
+        $scope.part = network.getData();
+
+        $scope.chooseItem = function (item) {
+            $scope.parts[$scope.part] = item;
+            network.setItems($scope.parts);
+            $state.go('main.edit_floor');
+        };
+        $scope.getWallComponents = function () {
+            network.getWallComponents({
+                type: "GET",
+                service: "/Items"
+            }).then(function (response) {
+                $scope.getWallComponents = response.data.results;
+            });
+        };
+        $scope.getWallComponents();
     }
     return {
-//            templateUrl: 'views/review_house/review_house.tpl.html',
+        templateUrl: 'views/select_items/select_items.tpl.html',
         restrict: 'E',
-        replace: true,
+//        replace: true,
         scope: {},
         link: linker
     };

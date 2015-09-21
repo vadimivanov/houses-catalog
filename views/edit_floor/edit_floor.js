@@ -1,76 +1,60 @@
-//(function() {
-//'use strict';
-//
-//angular
-//    .module('edit_floor', ['ngRoute'])
-//    .controller('EditFloorCtrl', EditFloorCtrl);
-//
-//    EditFloorCtrl.$inject = ['authService', '$location'];
-//
-//    function EditFloorCtrl(authService, $location) {
-//        var editFloorScope = this;
-//            editFloorScope.parts = authService.getItems();
-//            editFloorScope.addFloor = addFloor;
-//            editFloorScope.selectItems = selectItems;
-//            editFloorScope.changeFloor = changeFloor;
-//            editFloorScope.cancel = cancel;
-//            editFloorScope.floorId = authService.getFloorId();
-//
-//            editFloorScope.floorOptions = {
-//                params: editFloorScope.parts,
-//                type: "POST",
-//                service: "/Floors",
-//                houseId: authService.getHouseId()
-//            };
-//
-//        function addFloor() {
-//            $location.url('/edit_house');
-//            authService.saveFloor(editFloorScope.floorOptions)
-//                .then(function (response) {
-////                    editFloorScope.parts = authService.setItems({part1: "partWall", part2: "partWall"});
-//                }, function (error) {
-//                });
-//        }
-//        function changeFloor() {
-//            $location.url('/edit_house');
-//            authService.changeFloor({
-//                params: editFloorScope.parts,
-//                type: "PUT",
-//                service: "/Floors/"+ editFloorScope.floorId
-//            })
-//                .then(function (response) {
-////                    editFloorScope.parts = authService.setItems({part1: "partWall", part2: "partWall"});
-//                }, function (error) {
-//                });
-//        }
-//
-//        function selectItems(item) {
-//            authService.setData('part'+item);
-//            $location.url('/select_items');
-//        }
-//
-//        function cancel() {
-//            $location.url('/edit_house');
-//        }
-//
-//    }
-//})();
 angular
     .module('app')
-    .directive('edit_floor', editFloor);
+    .directive('editFloor', edit_floor);
 
-editFloor.$inject = ['$state'];
+edit_floor.$inject = ['$state', 'network'];
 
-function editFloor($state, network, dataService, $stateParams) {
+function edit_floor($state, network, dataService, $stateParams) {
     function linker($scope) {
-        $scope.selectItems = function () {
-            $state.go('main.select-items');
+        $scope.parts = network.getItems();
+        $scope.addFloor = addFloor;
+        $scope.selectItems = selectItems;
+        $scope.changeFloor = changeFloor;
+        $scope.cancel = cancel;
+        $scope.floorId = network.getFloorId();
+
+        $scope.floorOptions = {
+                params: $scope.parts,
+                type: "POST",
+                service: "/Floors",
+                houseId: network.getHouseId()
+            };
+
+        function addFloor() {
+            $state.go('main.edit_house');
+            network.saveFloor($scope.floorOptions)
+                .then(function (response) {
+//                    editFloorScope.parts = authService.setItems({part1: "partWall", part2: "partWall"});
+                }, function (error) {
+                });
+        }
+        function changeFloor() {
+            $state.go('main.edit_house');
+            network.changeFloor({
+                params: $scope.parts,
+                type: "PUT",
+                service: "/Floors/"+ $scope.floorId
+            })
+                .then(function (response) {
+//                    editFloorScope.parts = authService.setItems({part1: "partWall", part2: "partWall"});
+                }, function (error) {
+                });
+        }
+
+        function selectItems(item) {
+            network.setData('part'+item);
+            console.log(item);
+            $state.go('main.select_items');
+        }
+
+        function cancel() {
+            $state.go('main.edit_house');
         }
     }
     return {
-//            templateUrl: 'views/review_house/review_house.tpl.html',
+        templateUrl: 'views/edit_floor/edit_floor.tpl.html',
         restrict: 'E',
-        replace: true,
+//        replace: true,
         scope: {},
         link: linker
     };

@@ -4,33 +4,33 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/app.css">
 
+    <script src="libs/angular-1.4.4.js" type="text/javascript"></script>
+    <script src="libs/angular-ui-router.js" type="text/javascript"></script>
+    <script src="libs/angular-breadcrumb.js" type="text/javascript"></script>
+    <script src="libs/angular-resource.js" type="text/javascript"></script>
+    <script src="libs/angular-ms.js" type="text/javascript"></script>
+    <script src="libs/pubsub.js" type="text/javascript"></script>
+    <script src="libs/jquery.js" type="text/javascript"></script>
 </head>
-<body ng-app="app">
+<body ng-app="app" ng-strict-di>
 
     <div ui-view></div>
 
 
-
-
-    <script src="libs/angular-1.4.4.js"></script>
-    <script src="libs/angular-ui-router.js"></script>
-    <script src="libs/angular-breadcrumb.js"></script>
-    <script src="libs/angular-resource.js"></script>
-
-    <!--<script src="views/app.js"></script>-->
-    <script src="common/app.js"></script>
-    <script src="common/app.router.js"></script>
-    <script src="services/services.js"></script>
-    <script src="views/home/home.js"></script>
-    <script src="views/login/login.js"></script>
-    <script src="views/select_items/select_items.js"></script>
-    <script src="views/review_house/review_house.js"></script>
-    <script src="views/edit_house/edit_house.js"></script>
-    <script src="views/edit_floor/edit_floor.js"></script>
-    <script src="views/create_house/create_house.js"></script>
+    <!--<script src="views/app.js" type="text/javascript"></script>-->
+    <script src="common/app.js" type="text/javascript"></script>
+    <script src="common/app.router.js" type="text/javascript"></script>
+    <script src="services/services.js" type="text/javascript"></script>
+    <script src="views/home/home.js" type="text/javascript"></script>
+    <script src="views/login/login.js" type="text/javascript"></script>
+    <script src="views/select_items/select_items.js" type="text/javascript"></script>
+    <script src="views/review_house/review_house.js" type="text/javascript"></script>
+    <script src="views/edit_house/edit_house.js" type="text/javascript"></script>
+    <script src="views/edit_floor/edit_floor.js" type="text/javascript"></script>
+    <script src="views/create_house/create_house.js" type="text/javascript"></script>
     <!--<script src="services/authService.js"></script>-->
     <!--<script src="services/housesService.js"></script>-->
-    <!--<script src="services/messagesService.js"></script>-->
-    <script src="components/modal.js"></script>
+    <script src="components/modal.js" type="text/javascript"></script>
+    <script src="services/messages.service.js" type="text/javascript"></script>
 </body>
 </html>

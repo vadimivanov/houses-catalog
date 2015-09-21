@@ -27,7 +27,7 @@ function config($stateProvider, $urlRouterProvider) {
         .state('main.home',{
             url: '/home',
 //            templateUrl: 'views/home/home.tpl.html',
-            template: '<home/>',
+            template: '<home></home>',
             ncyBreadcrumb: {
                 label: 'Home'
             }
@@ -35,15 +35,15 @@ function config($stateProvider, $urlRouterProvider) {
         .state('main.review_house',{
             url: '/review_house',
 //            templateUrl: 'views/review_house/review_house.tpl.html',
-            template: '<review/>',
+            template: '<review_house></review_house>',
             ncyBreadcrumb: {
                 label: 'Review'
             }
         })
-        .state('main.edit-house',{
-            url: '/edit-house',
+        .state('main.edit_house',{
+            url: '/edit_house',
 //            templateUrl: 'views/edit_house/edit_house.tpl.html',
-            template: '<edit_house/>',
+            template: '<edit_house></edit_house>',
             ncyBreadcrumb: {
                 label: 'Edit House'
             }
@@ -51,23 +51,23 @@ function config($stateProvider, $urlRouterProvider) {
         .state('main.create_house',{
             url: '/create_house',
 //            templateUrl: 'views/create_house/create_house.tpl.html',
-            template: '<create_house/>',
+            template: '<create_house></create_house>',
             ncyBreadcrumb: {
                 label: 'Create House'
             }
         })
-        .state('main.edit-floor',{
-            url: '/edit-floor',
-            templateUrl: 'views/edit_floor/edit_floor.tpl.html',
-//            template: '<review></review>',
+        .state('main.edit_floor',{
+            url: '/edit_floor',
+//            templateUrl: 'views/edit_floor/edit_floor.tpl.html',
+            template: '<edit_floor></edit_floor>',
             ncyBreadcrumb: {
                 label: 'Edit floor'
             }
         })
-        .state('main.select-items',{
-            url: '/select-items',
-            templateUrl: 'views/select_items/select_items.tpl.html',
-//            template: '<review></review>',
+        .state('main.select_items',{
+            url: '/select_items',
+//            templateUrl: 'views/select_items/select_items.tpl.html',
+            template: '<select_items></select_items>',
             ncyBreadcrumb: {
                 label: 'Select items'
             }

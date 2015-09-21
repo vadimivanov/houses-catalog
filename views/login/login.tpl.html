@@ -1,17 +1,16 @@
 <div class="">
-<h2>Login</h2>
     <form class="form-signin">
         <h2 class="form-signin-heading">Sign in</h2>
         <input id="inputEmail" class="form-control" placeholder="Login" ng-model="signInData.params.username">
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="signInData.params.password">
         <span class="top20 btn btn-lg btn-primary btn-block" ng-click="signIn()">Sign in</span>
     </form>
-    <!--<span class="top20 btn btn-lg btn-primary btn-default" ng-click="loginScope.getSignUpForm()" ng-show="!loginScope.visibility">sign up form</span>-->
-    <!--<form class="form-signup" ng-show="loginScope.visibility">-->
-        <!--<h2 class="form-signin-heading">Sign up</h2>-->
-        <!--<input class="form-control" placeholder="Login" ng-model="loginScope.signUpData.params.username">-->
-        <!--<input type="password" class="form-control" placeholder="Password" ng-model="loginScope.signUpData.params.password">-->
-        <!--<span class="top20 btn btn-lg btn-primary btn-block" ng-click="loginScope.signUp()">Sign up</span>-->
-    <!--</form>-->
+    <span class="top20 btn btn-lg btn-primary btn-default" ng-click="getSignUpForm()" ng-show="!visibility">sign up form</span>
+    <form class="form-signup" ng-show="visibility">
+        <h2 class="form-signin-heading">Sign up</h2>
+        <input class="form-control" placeholder="Login" ng-model="signUpData.params.username">
+        <input type="password" class="form-control" placeholder="Password" ng-model="signUpData.params.password">
+        <span class="top20 btn btn-lg btn-primary btn-block" ng-click="signUp()">Sign up</span>
+    </form>
 
 </div>

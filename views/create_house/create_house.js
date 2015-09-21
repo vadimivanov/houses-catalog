@@ -1,36 +1,16 @@
-//(function() {
-//'use strict';
-//
-//angular
-//    .module('create_house', ['ngRoute'])
-//    .controller('CreateCtrl', CreateCtrl);
-//
-//    CreateCtrl.$inject = ['authService', '$location'];
-//
-//    function CreateCtrl(authService, $location) {
-//        var createScope = this;
-//        createScope.list = [];
-//        createScope.goToEditFloor = goToEditFloor;
-//
-//        function goToEditFloor() {
-//            authService.setItems({part1: "partWall", part2: "partWall"});
-//            $location.url('/edit_floor');
-//        }
-//    }
-//
-//})();
 angular
     .module('app')
-    .directive('create', create);
+    .directive('createHouse', create_house);
 
-create.$inject = ['$state'];
+create_house.$inject = ['$state', 'network'];
 
-function create($state, network, dataService, $stateParams) {
-    console.log('dir-create');
+function create_house($state, network, dataService, $stateParams) {
     function linker($scope) {
+        $scope.list = [];
+
         $scope.goToEditFloor = function() {
-            console.log('click');
-            $state.go('main.edit-floor');
+            network.setItems({part1: "partWall", part2: "partWall"});
+            $state.go('main.edit_floor');
         }
     }
     return {
