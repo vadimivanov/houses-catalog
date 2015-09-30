@@ -2,9 +2,9 @@ angular
     .module('app')
     .directive('editFloor', edit_floor);
 
-edit_floor.$inject = ['$state', 'network'];
+edit_floor.$inject = ['$state', 'network', '$breadcrumb'];
 
-function edit_floor($state, network, dataService, $stateParams) {
+function edit_floor($state, network, $breadcrumb) {
     function linker($scope) {
         $scope.parts = network.getItems();
         $scope.addFloor = addFloor;
@@ -12,6 +12,8 @@ function edit_floor($state, network, dataService, $stateParams) {
         $scope.changeFloor = changeFloor;
         $scope.cancel = cancel;
         $scope.floorId = network.getFloorId();
+        $scope.links = $breadcrumb.getStatesChain();
+        PubSub.publish('button-back', $scope.links[$scope.links.length-2]);
 
         $scope.floorOptions = {
                 params: $scope.parts,
@@ -22,11 +24,7 @@ function edit_floor($state, network, dataService, $stateParams) {
 
         function addFloor() {
             $state.go('main.edit_house');
-            network.saveFloor($scope.floorOptions)
-                .then(function (response) {
-//                    editFloorScope.parts = authService.setItems({part1: "partWall", part2: "partWall"});
-                }, function (error) {
-                });
+            network.saveFloor($scope.floorOptions);
         }
         function changeFloor() {
             $state.go('main.edit_house');
@@ -34,16 +32,11 @@ function edit_floor($state, network, dataService, $stateParams) {
                 params: $scope.parts,
                 type: "PUT",
                 service: "/Floors/"+ $scope.floorId
-            })
-                .then(function (response) {
-//                    editFloorScope.parts = authService.setItems({part1: "partWall", part2: "partWall"});
-                }, function (error) {
-                });
+            });
         }
 
         function selectItems(item) {
             network.setData('part'+item);
-            console.log(item);
             $state.go('main.select_items');
         }
 
@@ -54,7 +47,6 @@ function edit_floor($state, network, dataService, $stateParams) {
     return {
         templateUrl: 'views/edit_floor/edit_floor.tpl.html',
         restrict: 'E',
-//        replace: true,
         scope: {},
         link: linker
     };

@@ -5,7 +5,7 @@ angular
 
     home.$inject = ['$state', 'network'];
 
-    function home($state, network, dataService, $stateParams) {
+    function home($state, network) {
         function linker($scope) {
             $scope.data = {
                 list: [],
@@ -14,13 +14,6 @@ angular
                     type: "POST",
                     service: "/logout"
                 }
-            };
-            $scope.logout = function () {
-                network.logout($scope.data.logoutData)
-                    .then(function (response) {
-                        $location.url('/login');
-                        $location.replace();
-                    });
             };
 
             $scope.loadHousesList = function () {
@@ -45,12 +38,11 @@ angular
                     service: "/Houses"
                 }).then(function (response) {
                     network.setHouseId(response.data.objectId);
-                }, function (error) {
                 });
             };
 
             $scope.removeHouse = function (id) {
-                var arrDel = [];
+                var removingFloors = [];
                 network.removeHouse({
                     type: "DELETE",
                     service: "/Houses/"+id,
@@ -62,13 +54,11 @@ angular
                         objId: id
                     })
                     .then(function (response) {
-                        arrDel = response.data.results;
-                            console.log('arrDel',arrDel);
-                        for (var i = 0; i < arrDel.length; i++) {
-                            console.log(arrDel[i].objectId);
+                        removingFloors = response.data.results;
+                        for (var i = 0; i < removingFloors.length; i++) {
                             network.removeHouseFloors({
                                 type: "DELETE",
-                                houseId: arrDel[i].objectId
+                                houseId: removingFloors[i].objectId
                             })
                         }
                     });

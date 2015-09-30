@@ -2,13 +2,15 @@ angular
     .module('app')
     .directive('selectItems', select_items);
 
-select_items.$inject = ['$state', 'network'];
+select_items.$inject = ['$state', 'network', '$breadcrumb'];
 
-function select_items($state, network, dataService, $stateParams) {
+function select_items($state, network, $breadcrumb) {
     function linker($scope) {
         $scope.wallComponents = [];
         $scope.parts = network.getItems();
         $scope.part = network.getData();
+        $scope.links = $breadcrumb.getStatesChain();
+        PubSub.publish('button-back', $scope.links[$scope.links.length-2]);
 
         $scope.chooseItem = function (item) {
             $scope.parts[$scope.part] = item;
@@ -20,7 +22,7 @@ function select_items($state, network, dataService, $stateParams) {
                 type: "GET",
                 service: "/Items"
             }).then(function (response) {
-                $scope.getWallComponents = response.data.results;
+                $scope.wallComponents = response.data.results;
             });
         };
         $scope.getWallComponents();
@@ -28,7 +30,6 @@ function select_items($state, network, dataService, $stateParams) {
     return {
         templateUrl: 'views/select_items/select_items.tpl.html',
         restrict: 'E',
-//        replace: true,
         scope: {},
         link: linker
     };

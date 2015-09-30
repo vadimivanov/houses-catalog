@@ -1,5 +1,7 @@
-<div class="center-block navbar-fixed-bottom">
-<span class="btn btn-default" ng-click="setHouseId()">Edit house</span>
+<div class="center-block width-app navbar-fixed-bottom">
+    <div class="edit-house-button">
+        <span class="btn btn-lg btn-primary" ng-click="setHouseId()">Edit house</span>
+    </div>
     <div class="floor center" ng-repeat="floor in floorsList | orderBy:$index:reverse">
         <span class="{{floor.wall.part1}} span-margin-right">{{floor.wall.part1}}</span>
         <span class="{{floor.wall.part2}} span-margin-right">{{floor.wall.part2}}</span>

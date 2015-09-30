@@ -1,16 +1,24 @@
-<div class="center-block navbar-fixed-bottom">
+<div class="center-block width-app navbar-fixed-bottom">
     <div class="floor center">
         <h4>Add floor</h4>
         <span class="btn btn-default" ng-click="goToEditFloor()">Add</span>
     </div>
     <div class="floor center" ng-repeat="floor in floorsList | orderBy:$index:reverse">
         <div class="floor-items-left" >
-            <span class="{{floor.wall.part1}} span-margin-right">{{floor.wall.part1}}</span>
-            <span class="{{floor.wall.part2}} span-margin-right">{{floor.wall.part2}}</span>
+            <span class="{{floor.wall.part1}} span-margin-right">
+                {{floor.wall.part1}}
+            </span>
+            <span class="{{floor.wall.part2}} span-margin-right">
+                {{floor.wall.part2}}
+            </span>
         </div>
         <div class="floor-items-right">
-            <span class="btn btn-default" ng-click="removeFloor(floor.objectId)">remove floor</span><br>
-            <span class="btn btn-default" ng-click="goToEditFloor(floor.objectId)">edit floor</span>
+            <span class="btn btn-default btn-danger" ng-click="removeFloor(floor.objectId)">
+                remove floor
+            </span><br>
+            <span class="btn btn-default btn-primary" ng-click="goToEditFloor(floor.objectId)">
+                edit floor
+            </span>
         </div>
     </div>
 </div>

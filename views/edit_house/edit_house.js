@@ -2,9 +2,9 @@ angular
     .module('app')
     .directive('editHouse', edit_house);
 
-edit_house.$inject = ['$state', 'network'];
+edit_house.$inject = ['$state', 'network', '$breadcrumb'];
 
-function edit_house($state, network, dataService, $stateParams) {
+function edit_house($state, network, $breadcrumb) {
     console.log('dir-edithouse');
     function linker($scope) {
 
@@ -20,6 +20,8 @@ function edit_house($state, network, dataService, $stateParams) {
         $scope.getHouse = getHouse();
         $scope.goToEditFloor = goToEditFloor;
         $scope.getCurrentFloor = getCurrentFloor;
+        $scope.links = $breadcrumb.getStatesChain();
+        PubSub.publish('button-back', $scope.links[$scope.links.length-2]);
 
         function getHouse() {
             network.getHouse($scope.reviewData)

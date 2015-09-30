@@ -1,28 +1,6 @@
 angular
     .module('app')
     .directive('login', login);
-//    .factory('myModal', function (btfModal) {
-//        return btfModal({
-//            controller: 'MyModalCtrl',
-//            controllerAs: 'modal',
-//            templateUrl: 'components/modal.tpl.html'
-//        });
-//    })
-
-//    .controller('MyModalCtrl',MyModalCtrl);
-//
-//    MyModalCtrl.$inject =['myModal', 'messages'];
-//    function MyModalCtrl(myModal,messages) {
-//        var ctrl = this;
-//        ctrl.msgOpt = messages.getData();
-//        ctrl.msgText = ctrl.msgOpt.status+": "+ctrl.msgOpt.statusText;
-//        ctrl.closeMe = closeMe;
-//
-//        function closeMe() {
-//            myModal.deactivate();
-//        }
-//
-//    }
 
     login.$inject = ['$state', 'network', 'messages'];
 
@@ -55,7 +33,7 @@ angular
                         $state.go('main.home');
                     }, function (error) {
                         PubSub.publish('messages', error);
-//                        messages.setData(error);
+                        messages.setData(error);
                     });
             };
 
@@ -81,9 +59,8 @@ angular
                         PubSub.publish('messages', error);
                     });
             }
-            }
+        }
 
-//        }
         return {
             templateUrl: 'views/login/login.tpl.html',
             restrict: 'E',

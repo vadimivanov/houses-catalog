@@ -2,12 +2,13 @@ angular
     .module('app')
     .directive('reviewHouse', review_house);
 
-review_house.$inject = ['$state', 'network'];
+review_house.$inject = ['$state', 'network', '$breadcrumb'];
 
-    function review_house($state, network, dataService, $stateParams) {
+    function review_house($state, network, $breadcrumb) {
         function linker($scope) {
 
             $scope.floorsList = [];
+            $scope.links = $breadcrumb.getStatesChain();
             $scope.reverse = true;
             $scope.houseId = network.getHouseId();
             $scope.reviewData = {
@@ -28,11 +29,11 @@ review_house.$inject = ['$state', 'network'];
                 $state.go('main.edit_house');
             };
             $scope.getHouse();
+            PubSub.publish('button-back', $scope.links[$scope.links.length-2]);
         }
         return {
             templateUrl: 'views/review_house/review_house.tpl.html',
             restrict: 'E',
-//            replace: true,
             scope: {},
             link: linker
         };

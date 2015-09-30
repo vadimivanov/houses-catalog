@@ -16,7 +16,6 @@ angular
         FLOOR_ID: null,
         USER_ID: null
     })
-//angular.module('app')
     .service('network', network);
 
 network.$inject = ['$http', 'CONFIG'];
@@ -42,7 +41,7 @@ function network($http, CONFIG) {
                 };
                 return $http(options);
             };
-//
+
             this.getToken = function (token) {
                 CONFIG.SESSION_TOKEN = token;
             };
@@ -62,12 +61,12 @@ function network($http, CONFIG) {
                 var options = {
                     method: data.type,
                     headers: {
-                        'X-Parse-Application-Id': APP_ID,
-                        'X-Parse-REST-API-Key': REST_API_KEY,
-                        'X-Parse-Session-Token': SESSION_TOKEN,
+                        'X-Parse-Application-Id': CONFIG.APP_ID,
+                        'X-Parse-REST-API-Key': CONFIG.REST_API_KEY,
+                        'X-Parse-Session-Token': CONFIG.SESSION_TOKEN,
                         contentType: "application/json"
                     },
-                    url: URL + data.service,
+                    url: CONFIG.URL + data.service,
                     dataType: 'json'
                 };
                 return $http(options);
@@ -121,8 +120,7 @@ function network($http, CONFIG) {
                 return $http(options);
             };
             this.removeHouseFloors = function (data) {
-                var query = 'where={"depend":{"__type":"Pointer","className":"Houses","objectId":"'+ data.houseId +'"}}',
-                    options = {
+                var options = {
                         method: data.type,
                         headers: CONFIG.HEADER,
                         url: CONFIG.URL + '/classes/Floors/' + data.houseId,
@@ -147,7 +145,6 @@ function network($http, CONFIG) {
                     dataType: 'json',
                     data: parseObj
                 };
-                console.log('options',options);
                 return $http(options);
             };
             this.changeFloor = function (data) {
