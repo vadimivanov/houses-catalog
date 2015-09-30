@@ -18,13 +18,17 @@ function config($stateProvider, $urlRouterProvider) {
         })
         .state('main',{
             url: '/main',
-            templateUrl: 'views/main.tpl.html'
+            templateUrl: 'views/main.tpl.html',
+            ncyBreadcrumb: {
+                label: ''
+            }
         })
         .state('main.home',{
             url: '/home',
             template: '<home></home>',
             ncyBreadcrumb: {
-                label: 'Home'
+                label: 'Home',
+                parent: 'main'
             }
         })
         .state('main.review_house',{

@@ -3,9 +3,9 @@ angular
     .module('app')
     .directive('home', home);
 
-    home.$inject = ['$state', 'network'];
+    home.$inject = ['$state', 'network', '$breadcrumb'];
 
-    function home($state, network) {
+    function home($state, network, $breadcrumb) {
         function linker($scope) {
             $scope.data = {
                 list: [],
@@ -15,6 +15,8 @@ angular
                     service: "/logout"
                 }
             };
+            $scope.links = $breadcrumb.getStatesChain();
+            PubSub.publish('button-back', $scope.links[$scope.links.length-2]);
 
             $scope.loadHousesList = function () {
                 network.getHousesList({type: "GET", service: "/Houses"})

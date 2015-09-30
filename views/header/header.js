@@ -22,8 +22,10 @@ function header(network, $state) {
                 });
         };
         PubSub.subscribe('button-back', function(channel, data) {
-            $scope.data.goBackTitle = data.ncyBreadcrumb.label;
-            $scope.data.goBackLink = data.ncyBreadcrumbLink;
+            if (data) {
+                $scope.data.goBackTitle = data.ncyBreadcrumb.label;
+                $scope.data.goBackLink = data.ncyBreadcrumbLink;
+            }
         });
     }
 
