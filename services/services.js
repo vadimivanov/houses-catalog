@@ -3,7 +3,7 @@ angular
     .constant('CONFIG', {
         REST_API_KEY: 'hxzGz9aRbi9czdiHQ0qYw1dHDaZwzO7Ctc1WdUR4',
         APP_ID: 'FgxhEjiIvdA85ZAeqraJw6HlgKdBFsGBv0tlmUAa',
-        URL: "https://api.parse.com/1",
+        URL: "https://parseapi.back4app.com",
         HEADER: {
             'X-Parse-Application-Id': 'FgxhEjiIvdA85ZAeqraJw6HlgKdBFsGBv0tlmUAa',
             'X-Parse-REST-API-Key':  'hxzGz9aRbi9czdiHQ0qYw1dHDaZwzO7Ctc1WdUR4',
